@@ -1,0 +1,269 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="style.css" rel="stylesheet">
+    <script>
+    if(window.localStorage.getItem("datePref") != "" && window.localStorage.getItem("numberPref") != "" && window.localStorage.getItem("formatPref") != "" && window.localStorage.getItem("osPref") != ""){
+                formatPref = window.localStorage.getItem("formatPref");
+                datePref = window.localStorage.getItem("datePref");
+                numberPref = window.localStorage.getItem("numberPref");
+                OS = window.localStorage.getItem("osPref");
+            }
+    </script>
+</head>
+
+<body>
+    <div class="col-lg-5"></div>
+    <div class="col-lg-1">
+        <button style="margin:7px 15px 17px 0; position:center center;" class="btn btn-info btn-lg span12" onClick="openForm()">Click To Open Modal</button>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Format preference</h4>
+                </div>
+                <form id="myForm" class="col-lg-12" action="export.php" method="get">
+                    
+                    <!-- form for predefined types -->
+                    <div class="form-horizontal">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3" style="width:19%; margin-top:10px">
+                                        Format preference:
+                                    </div>
+                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
+                                        
+                                        <label id="usalbl" onclick="hidde('usa')" class="formatPreflbl btn"><input type="radio" id="usa" onclick="hidde('usa')" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>USA</label>
+
+                                        <label id="europelbl" onclick="hidde('europe')" class="formatPreflbl btn"><input type="radio" onclick="hidde('europe')" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe</label>
+
+                                        <label id="customlbl" onclick="show()" class="formatPreflbl btn"><input type="radio" id="custom" class="formatPref radio-inline"   name="formatPref" value="custom"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Custom</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    
+                    <!-- form for date -->
+                    <div id="formDate" class="form-horizontal" style="display:none">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="col-lg-3" style="width:19%; margin-top:10px">
+                                        Format date preference:
+                                    </div>
+                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
+
+                                        <label id="enlbl" class="datePreflbl btn"><input type="radio" id="en" class="datePref radio-inline"  name="datePref" value="en"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>MM/DD/YYYY</label>
+
+                                        <label id="itlbl" class="datePreflbl btn"><input type="radio" id="it" class="datePref radio-inline"  name="datePref" value="it"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>DD/MM/YYYY</label>
+
+                                        <label id="datalbl" class="datePreflbl btn"><input type="radio" id="data" class="datePref radio-inline"  name="datePref" value="data"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>YYYY/MM/DD</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    <!-- form for numbers -->
+                    <div id="formNumber" class="form-horizontal" style="display:none">
+                        <hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    Numbers:
+                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
+                                        <label id="pointlbl" class="numberPreflbl btn"><input type="radio" id="point" name="numberPref" class="numberPref radio-inline" value="point"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use point for numbers (23.45)</label>
+
+                                        <label id="commalbl" class="numberPreflbl btn"><input type="radio" id="comma" name="numberPref" class="numberPref radio-inline" value="comma"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use comma for numbers (23,45)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- form for OS -->
+                    <div id="formOs" class="form-horizontal"ç>
+                        <hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    Operative sistem:
+                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
+                                        <label id="winlbl" class="winlbl btn"><input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows</label>
+
+                                        <label id="maclbl" class="maclbl btn"><input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac</label>
+                                        
+                                        <label id="ubulbl" class="ubulbl btn"><input type="radio" id="ubuntu" name="osPref" class="osPref radio-inline" value="ubu"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Ubuntu</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- buttons -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btnClose" data-dismiss="modal">Close</button>
+                    <button class="btn btn-info btnExport" id="ex" type="submit" onClick="storage()" data-dismiss="modal" value="Export">Export</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+
+<script>
+    //load the preferences from the local Storage
+    function openForm() {  
+        $('#myModal').modal('show');
+        formatPref = window.localStorage.getItem("formatPref");
+        datePref = window.localStorage.getItem("datePref");
+        numberPref = window.localStorage.getItem("numberPref");
+        osPref = window.localStorage.getItem("osPref");
+        if(formatPref != null){
+
+            if (formatPref == "custom"){
+                show();
+            }
+
+            $("#"+formatPref).prop("checked", true);
+            $("#"+datePref).prop("checked", true);
+            $("#"+numberPref).prop("checked", true);
+            $("#"+osPref).prop("checked", true);
+            
+            document.getElementsByClassName("usalbl").className = 'btn';
+            document.getElementsByClassName("enlbl").className = 'btn';
+            document.getElementsByClassName("pointlbl").className = 'btn';
+            document.getElementsByClassName("winlbl").className = 'btn';
+            
+            document.getElementById(formatPref+"lbl").className = 'btn active';
+            document.getElementById(datePref+"lbl").className = 'btn active';
+            document.getElementById(numberPref+"lbl").className = 'btn active';
+            document.getElementById(osPref+"lbl").className = 'btn active';
+        }
+    };
+    
+    function show() {
+        
+        document.getElementById('formDate').style.display = "";
+        document.getElementById('formNumber').style.display = "";
+        
+    }
+    
+    function hidde(param){
+        switch (param){
+            case "usa":
+                $("#en").prop("checked", true);
+                
+                $("#point").prop("checked", true);
+                
+                document.getElementById("datalbl").className = 'btn';
+                document.getElementById("itlbl").className = 'btn';
+                document.getElementById("commalbl").className = 'btn';
+                
+                document.getElementById("enlbl").className = 'btn active';
+                document.getElementById("pointlbl").className = 'btn active';
+                break;
+                
+            case "europe":
+                $("#it").prop("checked", true);
+                
+                $("#comma").prop("checked", true);
+                
+                document.getElementById("datalbl").className = 'btn';
+                document.getElementById("enlbl").className = 'btn';
+                document.getElementById("pointlbl").className = 'btn';
+                
+                document.getElementById("itlbl").className = 'btn active';
+                document.getElementById("commalbl").className = 'btn active';
+                break;
+        }
+        
+        document.getElementById('formDate').style.display = "none";
+        document.getElementById('formNumber').style.display = "none";
+    }
+    
+    function storage() {
+            //test if the browser uses localStorage and Storage de options
+            if (typeof(Storage) != "undefined") {
+
+                formatPref = document.getElementsByClassName("formatPref");
+                osPref = document.getElementsByClassName("osPref");
+                
+                check = false;
+                for (i = 0; i < formatPref.length && check == false; i++) {
+                    if (formatPref[i].checked == true) {
+                        formatPref = formatPref[i].value;
+                        check = true;
+                    }
+                }
+                
+                switch(formatPref){
+                    case "europe":
+                        datePref = "it";
+                        numberPref = "comma";
+                        break;
+                    case "usa":
+                        datePref = "en"
+                        numberPref = "point";
+                        break;
+                    case "custom":
+                        datePref = document.getElementsByClassName("datePref");
+                        numberPref = document.getElementsByClassName("numberPref");
+                        
+                        check = false;
+                        for (i = 0; i < datePref.length && check == false; i++) {
+                            if (datePref[i].checked == true) {
+                                datePref = datePref[i].value;
+                                check = true;
+                            }
+                        }
+                        check = false;
+                        for (i = 0; i < numberPref.length && check == false; i++) {
+                            if (numberPref[i].checked == true) {
+                                numberPref = numberPref[i].value;
+                                check = true;
+                            }
+                        }
+                        
+                        break;
+                }
+                check = false;
+                for (i = 0; i < osPref.length && check == false; i++) {
+                    if(osPref[i].checked == true) {
+                        osPref = osPref[i].value;
+                        check = true;
+                    }
+                }
+
+                window.localStorage.setItem("formatPref", formatPref);
+                window.localStorage.setItem("datePref", datePref);
+                window.localStorage.setItem("numberPref", numberPref);
+                window.localStorage.setItem("osPref", osPref);
+                
+                send();
+            }
+        }
+
+        //send current options
+        function send() {
+            document.forms['myForm'].submit();
+        }
+</script>
+
+</html>
