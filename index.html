@@ -8,12 +8,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="style.css" rel="stylesheet">
     <script>
+        
     if(window.localStorage.getItem("datePref") != "" && window.localStorage.getItem("numberPref") != "" && window.localStorage.getItem("formatPref") != "" && window.localStorage.getItem("osPref") != ""){
                 formatPref = window.localStorage.getItem("formatPref");
                 datePref = window.localStorage.getItem("datePref");
                 numberPref = window.localStorage.getItem("numberPref");
-                OS = window.localStorage.getItem("osPref");
             }
+        
     </script>
 </head>
 
@@ -101,19 +102,19 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    Operative sistem:
+                                    Operative system:
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
                                         <label id="winlbl" class="winlbl btn"><input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows</label>
 
                                         <label id="maclbl" class="maclbl btn"><input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac</label>
                                         
-                                        <label id="ubulbl" class="ubulbl btn"><input type="radio" id="ubuntu" name="osPref" class="osPref radio-inline" value="ubu"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Ubuntu</label>
+                                        <label id="linlbl" class="linlbl btn"><input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <div>* Your operative system al this momment</div>
                 </form>
                 <!-- buttons -->
                 <div class="modal-footer">
@@ -154,7 +155,22 @@
             document.getElementById(formatPref+"lbl").className = 'btn active';
             document.getElementById(datePref+"lbl").className = 'btn active';
             document.getElementById(numberPref+"lbl").className = 'btn active';
-            document.getElementById(osPref+"lbl").className = 'btn active';
+            
+            if (navigator.appVersion.indexOf("Win")!=-1){
+                document.getElementById("winlbl").className = 'btn active';
+                document.getElementById("winlbl").innerHTML= '<input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows*';
+            } 
+            if (navigator.appVersion.indexOf("Mac")!=-1){
+                document.getElementById("maclbl").className = 'btn active';
+                document.getElementById("winlbl").innerHTML= '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac*';
+            } 
+            if (navigator.appVersion.indexOf("Linux")!=-1){
+                document.getElementById("linlbl").className = 'btn active';
+                document.getElementById("winlbl").innerHTML= '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux*';
+            } 
+            
+            
+            
         }
     };
     
@@ -191,6 +207,9 @@
                 
                 document.getElementById("itlbl").className = 'btn active';
                 document.getElementById("commalbl").className = 'btn active';
+                break;
+            case "custom":
+                 
                 break;
         }
         

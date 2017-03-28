@@ -18,16 +18,21 @@ require_once('api.php');
         case "win":
             $endline = "\r\n";
             break;
-        case "ubu":
+        case "lin":
             $endline = "\n";
             break;
         case "mac":
             $endline = "\r";
             break;
     }   
-    foreach($data as $a){
-        fputcsv($file,$a);
+    foreach($data as $dat){
+        foreach($dat as $a){
+            fprintf($file,"\"".strval($a)."\",");
+        }
+        $stat = fstat($file);
+        ftruncate($file, $stat['size']-1); 
         fwrite($file,$endline);
+        //fputcsv($file,$a);
     }
 
 fclose($file);
