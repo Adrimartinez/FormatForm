@@ -7,15 +7,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="style.css" rel="stylesheet">
-    <script>
-        
-    if(window.localStorage.getItem("datePref") != "" && window.localStorage.getItem("numberPref") != "" && window.localStorage.getItem("formatPref") != "" && window.localStorage.getItem("osPref") != ""){
-                formatPref = window.localStorage.getItem("formatPref");
-                datePref = window.localStorage.getItem("datePref");
-                numberPref = window.localStorage.getItem("numberPref");
-            }
-        
-    </script>
 </head>
 
 <body>
@@ -87,7 +78,7 @@
                                 <div class="col-lg-12">
                                     Numbers:
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
-                                        <label id="pointlbl" class="numberPreflbl btn"><input type="radio" id="point" name="numberPref" class="numberPref radio-inline" value="point"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use point for numbers (23.45)</label>
+                                        <label id="pointlbl" class="numberPreflbl btn"><input type="radio" id="point" name="numberPref" class="numberPref radio-inline" value="point"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use dot for numbers (23.45)</label>
 
                                         <label id="commalbl" class="numberPreflbl btn"><input type="radio" id="comma" name="numberPref" class="numberPref radio-inline" value="comma"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use comma for numbers (23,45)</label>
                                     </div>
@@ -104,11 +95,28 @@
                                 <div class="col-lg-12">
                                     Operative system:
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
-                                        <label id="winlbl" class="winlbl btn"><input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows</label>
+                                        <label id="winlbl" class="osPreflbl btn"><input type="radio" id="win" name="osPref" class="osPref radio-inline" value="win"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows</label>
 
-                                        <label id="maclbl" class="maclbl btn"><input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac</label>
+                                        <label id="maclbl" class="osPreflbl btn"><input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac</label>
                                         
-                                        <label id="linlbl" class="linlbl btn"><input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux</label>
+                                        <label id="linlbl" class="osPreflbl btn"><input type="radio" id="lin" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- form for separators -->
+                    <div id="formSeparator" class="form-horizontal">
+                        <hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    Separator:
+                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
+                                        <label id="comlbl" class="sepPreflbl btn"><input type="radio" id="com" name="sepPref" class="sepPref radio-inline" value="com"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Comma</label>
+
+                                        <label id="tablbl" class="sepPreflbl btn"><input type="radio" id="tab" name="sepPref" class="sepPref radio-inline" value="tab"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Tabulation</label>
                                     </div>
                                 </div>
                             </div>
@@ -116,6 +124,7 @@
                     </div>
                     <div>* Your operative system al this momment</div>
                 </form>
+
                 <!-- buttons -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btnClose" data-dismiss="modal">Close</button>
@@ -136,44 +145,59 @@
         datePref = window.localStorage.getItem("datePref");
         numberPref = window.localStorage.getItem("numberPref");
         osPref = window.localStorage.getItem("osPref");
+        sepPref = window.localStorage.getItem("sepPref");
+        
         if(formatPref != null){
 
             if (formatPref == "custom"){
                 show();
             }
-
+            
             $("#"+formatPref).prop("checked", true);
             $("#"+datePref).prop("checked", true);
             $("#"+numberPref).prop("checked", true);
-            $("#"+osPref).prop("checked", true);
+            $("#"+sepPref).prop("checked", true);
             
-            document.getElementsByClassName("usalbl").className = 'btn';
-            document.getElementsByClassName("enlbl").className = 'btn';
-            document.getElementsByClassName("pointlbl").className = 'btn';
-            document.getElementsByClassName("winlbl").className = 'btn';
+            document.getElementById(formatPref+"lbl").className += ' active';
+            document.getElementById(datePref+"lbl").className += ' active';
+            document.getElementById(numberPref+"lbl").className += ' active'; 
+            document.getElementById(sepPref+"lbl").className += ' active'; 
             
-            document.getElementById(formatPref+"lbl").className = 'btn active';
-            document.getElementById(datePref+"lbl").className = 'btn active';
-            document.getElementById(numberPref+"lbl").className = 'btn active';
+            OSrec();
+             
+        }else{
             
-            if (navigator.appVersion.indexOf("Win")!=-1){
+            OSrec();
+            
+            document.getElementById("usalbl").className = 'usalbl btn active';
+            document.getElementById("enlbl").className = 'onlbl btn active';
+            document.getElementById("pointlbl").className = 'pointlbl btn active';
+            document.getElementById("winlbl").className = 'winlbl btn active';
+            document.getElementById("comlbl").className = 'comlbl btn active';
+            
+            $("#usa").prop("checked", true);
+            $("#en").prop("checked", true);
+            $("#point").prop("checked", true);
+            $("#win").prop("checked", true);
+            $("#com").prop("checked", true);
+        }
+    };
+
+    
+    function OSrec(){
+        if (navigator.appVersion.indexOf("Win")!=-1){
                 document.getElementById("winlbl").className = 'btn active';
                 document.getElementById("winlbl").innerHTML= '<input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows*';
             } 
             if (navigator.appVersion.indexOf("Mac")!=-1){
                 document.getElementById("maclbl").className = 'btn active';
-                document.getElementById("winlbl").innerHTML= '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac*';
+                document.getElementById("maclbl").innerHTML= '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac*';
             } 
             if (navigator.appVersion.indexOf("Linux")!=-1){
                 document.getElementById("linlbl").className = 'btn active';
-                document.getElementById("winlbl").innerHTML= '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux*';
+                document.getElementById("linlbl").innerHTML= '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux*';
             } 
-            
-            
-            
-        }
-    };
-    
+    }
     function show() {
         
         document.getElementById('formDate').style.display = "";
@@ -208,9 +232,6 @@
                 document.getElementById("itlbl").className = 'btn active';
                 document.getElementById("commalbl").className = 'btn active';
                 break;
-            case "custom":
-                 
-                break;
         }
         
         document.getElementById('formDate').style.display = "none";
@@ -223,6 +244,7 @@
 
                 formatPref = document.getElementsByClassName("formatPref");
                 osPref = document.getElementsByClassName("osPref");
+                sepPref = document.getElementsByClassName("sepPref");
                 
                 check = false;
                 for (i = 0; i < formatPref.length && check == false; i++) {
@@ -269,11 +291,19 @@
                         check = true;
                     }
                 }
+                check = false;
+                for (i = 0; i < sepPref.length && check == false; i++) {
+                    if(sepPref[i].checked == true) {
+                        sepPref = sepPref[i].value;
+                        check = true;
+                    }
+                }
 
                 window.localStorage.setItem("formatPref", formatPref);
                 window.localStorage.setItem("datePref", datePref);
                 window.localStorage.setItem("numberPref", numberPref);
                 window.localStorage.setItem("osPref", osPref);
+                window.localStorage.setItem("sepPref", sepPref);
                 
                 send();
             }

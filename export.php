@@ -9,7 +9,9 @@ require_once('api.php');
     $datePref = $_GET['datePref'];
     $numberPref = $_GET['numberPref'];
     $osPref = $_GET['osPref'];
+    $sep = $_GET['sepPref'];
     $endline = "";
+    $separator = "";
     $api = new Api($datePref, $numberPref);
     $data = $api->doTask($datePref, $numberPref);
 
@@ -24,10 +26,19 @@ require_once('api.php');
         case "mac":
             $endline = "\r";
             break;
-    }   
+    }  
+
+    switch($sep){
+        case "com";
+            $separator = ",";
+            break;
+        case "tab":
+            $separator = "\t";
+            break;
+    }
     foreach($data as $dat){
         foreach($dat as $a){
-            fprintf($file,"\"".strval($a)."\",");
+            fprintf($file,"\"".strval($a)."\"$separator");
         }
         $stat = fstat($file);
         ftruncate($file, $stat['size']-1); 
