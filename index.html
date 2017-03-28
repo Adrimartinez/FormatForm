@@ -8,6 +8,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="style.css" rel="stylesheet">
 </head>
+<script>
+    opened = false;
+</script>
 
 <body>
     <div class="col-lg-5"></div>
@@ -22,7 +25,7 @@
                     <h4 class="modal-title">Format preference</h4>
                 </div>
                 <form id="myForm" class="col-lg-12" action="export.php" method="get">
-                    
+
                     <!-- form for predefined types -->
                     <div class="form-horizontal">
                         <div class="container">
@@ -32,7 +35,7 @@
                                         Format preference:
                                     </div>
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
-                                        
+
                                         <label id="usalbl" onclick="hidde('usa')" class="formatPreflbl btn"><input type="radio" id="usa" onclick="hidde('usa')" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>USA</label>
 
                                         <label id="europelbl" onclick="hidde('europe')" class="formatPreflbl btn"><input type="radio" onclick="hidde('europe')" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe</label>
@@ -45,7 +48,7 @@
                         </div>
                     </div>
                     <hr>
-                    
+
                     <!-- form for date -->
                     <div id="formDate" class="form-horizontal" style="display:none">
                         <div class="container">
@@ -66,10 +69,10 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
-                    
+
+
                     <!-- form for numbers -->
                     <div id="formNumber" class="form-horizontal" style="display:none">
                         <hr>
@@ -86,9 +89,9 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- form for OS -->
-                    <div id="formOs" class="form-horizontal"ç>
+                    <div id="formOs" class="form-horizontal" ç>
                         <hr>
                         <div class="container">
                             <div class="row">
@@ -98,14 +101,14 @@
                                         <label id="winlbl" class="osPreflbl btn"><input type="radio" id="win" name="osPref" class="osPref radio-inline" value="win"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows</label>
 
                                         <label id="maclbl" class="osPreflbl btn"><input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac</label>
-                                        
+
                                         <label id="linlbl" class="osPreflbl btn"><input type="radio" id="lin" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- form for separators -->
                     <div id="formSeparator" class="form-horizontal">
                         <hr>
@@ -131,7 +134,7 @@
                     <button class="btn btn-info btnExport" id="ex" type="submit" onClick="storage()" data-dismiss="modal" value="Export">Export</button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -139,180 +142,186 @@
 
 <script>
     //load the preferences from the local Storage
-    function openForm() {  
+    function openForm() {
         $('#myModal').modal('show');
-        formatPref = window.localStorage.getItem("formatPref");
-        datePref = window.localStorage.getItem("datePref");
-        numberPref = window.localStorage.getItem("numberPref");
-        osPref = window.localStorage.getItem("osPref");
-        sepPref = window.localStorage.getItem("sepPref");
-        
-        if(formatPref != null){
 
-            if (formatPref == "custom"){
-                show();
+        if (opened === false) {
+            opened = true;
+            formatPref = window.localStorage.getItem("formatPref");
+            datePref = window.localStorage.getItem("datePref");
+            numberPref = window.localStorage.getItem("numberPref");
+            osPref = window.localStorage.getItem("osPref");
+            sepPref = window.localStorage.getItem("sepPref");
+
+            if (formatPref != null) {
+
+                if (formatPref == "custom") {
+                    show();
+                }
+
+                $("#" + formatPref).prop("checked", true);
+                $("#" + datePref).prop("checked", true);
+                $("#" + numberPref).prop("checked", true);
+                $("#" + sepPref).prop("checked", true);
+
+                document.getElementById(formatPref + "lbl").className += ' active';
+                document.getElementById(datePref + "lbl").className += ' active';
+                document.getElementById(numberPref + "lbl").className += ' active';
+                document.getElementById(sepPref + "lbl").className += ' active';
+
+                OSrec();
+
             }
-            
-            $("#"+formatPref).prop("checked", true);
-            $("#"+datePref).prop("checked", true);
-            $("#"+numberPref).prop("checked", true);
-            $("#"+sepPref).prop("checked", true);
-            
-            document.getElementById(formatPref+"lbl").className += ' active';
-            document.getElementById(datePref+"lbl").className += ' active';
-            document.getElementById(numberPref+"lbl").className += ' active'; 
-            document.getElementById(sepPref+"lbl").className += ' active'; 
-            
-            OSrec();
-             
-        }else{
-            
-            OSrec();
-            
-            document.getElementById("usalbl").className = 'usalbl btn active';
-            document.getElementById("enlbl").className = 'onlbl btn active';
-            document.getElementById("pointlbl").className = 'pointlbl btn active';
-            document.getElementById("winlbl").className = 'winlbl btn active';
-            document.getElementById("comlbl").className = 'comlbl btn active';
-            
-            $("#usa").prop("checked", true);
-            $("#en").prop("checked", true);
-            $("#point").prop("checked", true);
-            $("#win").prop("checked", true);
-            $("#com").prop("checked", true);
+            else {
+
+                OSrec();
+
+                document.getElementById("usalbl").className = 'usalbl btn active';
+                document.getElementById("enlbl").className = 'onlbl btn active';
+                document.getElementById("pointlbl").className = 'pointlbl btn active';
+                document.getElementById("winlbl").className = 'winlbl btn active';
+                document.getElementById("comlbl").className = 'comlbl btn active';
+
+                $("#usa").prop("checked", true);
+                $("#en").prop("checked", true);
+                $("#point").prop("checked", true);
+                $("#win").prop("checked", true);
+                $("#com").prop("checked", true);
+            }
         }
     };
 
-    
-    function OSrec(){
-        if (navigator.appVersion.indexOf("Win")!=-1){
-                document.getElementById("winlbl").className = 'btn active';
-                document.getElementById("winlbl").innerHTML= '<input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows*';
-            } 
-            if (navigator.appVersion.indexOf("Mac")!=-1){
-                document.getElementById("maclbl").className = 'btn active';
-                document.getElementById("maclbl").innerHTML= '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac*';
-            } 
-            if (navigator.appVersion.indexOf("Linux")!=-1){
-                document.getElementById("linlbl").className = 'btn active';
-                document.getElementById("linlbl").innerHTML= '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux*';
-            } 
+
+    function OSrec() {
+        if (navigator.appVersion.indexOf("Win") != -1) {
+            document.getElementById("winlbl").className = 'btn active';
+            document.getElementById("winlbl").innerHTML = '<input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows*';
+        }
+        if (navigator.appVersion.indexOf("Mac") != -1) {
+            document.getElementById("maclbl").className = 'btn active';
+            document.getElementById("maclbl").innerHTML = '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac*';
+        }
+        if (navigator.appVersion.indexOf("Linux") != -1) {
+            document.getElementById("linlbl").className = 'btn active';
+            document.getElementById("linlbl").innerHTML = '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux*';
+        }
     }
+
     function show() {
-        
+
         document.getElementById('formDate').style.display = "";
         document.getElementById('formNumber').style.display = "";
-        
+
     }
-    
-    function hidde(param){
-        switch (param){
+
+    function hidde(param) {
+        switch (param) {
             case "usa":
                 $("#en").prop("checked", true);
-                
+
                 $("#point").prop("checked", true);
-                
+
                 document.getElementById("datalbl").className = 'btn';
                 document.getElementById("itlbl").className = 'btn';
                 document.getElementById("commalbl").className = 'btn';
-                
+
                 document.getElementById("enlbl").className = 'btn active';
                 document.getElementById("pointlbl").className = 'btn active';
                 break;
-                
+
             case "europe":
                 $("#it").prop("checked", true);
-                
+
                 $("#comma").prop("checked", true);
-                
+
                 document.getElementById("datalbl").className = 'btn';
                 document.getElementById("enlbl").className = 'btn';
                 document.getElementById("pointlbl").className = 'btn';
-                
+
                 document.getElementById("itlbl").className = 'btn active';
                 document.getElementById("commalbl").className = 'btn active';
                 break;
         }
-        
+
         document.getElementById('formDate').style.display = "none";
         document.getElementById('formNumber').style.display = "none";
     }
-    
+
     function storage() {
-            //test if the browser uses localStorage and Storage de options
-            if (typeof(Storage) != "undefined") {
+        //test if the browser uses localStorage and Storage de options
+        if (typeof(Storage) != "undefined") {
 
-                formatPref = document.getElementsByClassName("formatPref");
-                osPref = document.getElementsByClassName("osPref");
-                sepPref = document.getElementsByClassName("sepPref");
-                
-                check = false;
-                for (i = 0; i < formatPref.length && check == false; i++) {
-                    if (formatPref[i].checked == true) {
-                        formatPref = formatPref[i].value;
-                        check = true;
-                    }
-                }
-                
-                switch(formatPref){
-                    case "europe":
-                        datePref = "it";
-                        numberPref = "comma";
-                        break;
-                    case "usa":
-                        datePref = "en"
-                        numberPref = "point";
-                        break;
-                    case "custom":
-                        datePref = document.getElementsByClassName("datePref");
-                        numberPref = document.getElementsByClassName("numberPref");
-                        
-                        check = false;
-                        for (i = 0; i < datePref.length && check == false; i++) {
-                            if (datePref[i].checked == true) {
-                                datePref = datePref[i].value;
-                                check = true;
-                            }
-                        }
-                        check = false;
-                        for (i = 0; i < numberPref.length && check == false; i++) {
-                            if (numberPref[i].checked == true) {
-                                numberPref = numberPref[i].value;
-                                check = true;
-                            }
-                        }
-                        
-                        break;
-                }
-                check = false;
-                for (i = 0; i < osPref.length && check == false; i++) {
-                    if(osPref[i].checked == true) {
-                        osPref = osPref[i].value;
-                        check = true;
-                    }
-                }
-                check = false;
-                for (i = 0; i < sepPref.length && check == false; i++) {
-                    if(sepPref[i].checked == true) {
-                        sepPref = sepPref[i].value;
-                        check = true;
-                    }
-                }
+            formatPref = document.getElementsByClassName("formatPref");
+            osPref = document.getElementsByClassName("osPref");
+            sepPref = document.getElementsByClassName("sepPref");
 
-                window.localStorage.setItem("formatPref", formatPref);
-                window.localStorage.setItem("datePref", datePref);
-                window.localStorage.setItem("numberPref", numberPref);
-                window.localStorage.setItem("osPref", osPref);
-                window.localStorage.setItem("sepPref", sepPref);
-                
-                send();
+            check = false;
+            for (i = 0; i < formatPref.length && check == false; i++) {
+                if (formatPref[i].checked == true) {
+                    formatPref = formatPref[i].value;
+                    check = true;
+                }
             }
-        }
 
-        //send current options
-        function send() {
-            document.forms['myForm'].submit();
+            switch (formatPref) {
+                case "europe":
+                    datePref = "it";
+                    numberPref = "comma";
+                    break;
+                case "usa":
+                    datePref = "en"
+                    numberPref = "point";
+                    break;
+                case "custom":
+                    datePref = document.getElementsByClassName("datePref");
+                    numberPref = document.getElementsByClassName("numberPref");
+
+                    check = false;
+                    for (i = 0; i < datePref.length && check == false; i++) {
+                        if (datePref[i].checked == true) {
+                            datePref = datePref[i].value;
+                            check = true;
+                        }
+                    }
+                    check = false;
+                    for (i = 0; i < numberPref.length && check == false; i++) {
+                        if (numberPref[i].checked == true) {
+                            numberPref = numberPref[i].value;
+                            check = true;
+                        }
+                    }
+
+                    break;
+            }
+            check = false;
+            for (i = 0; i < osPref.length && check == false; i++) {
+                if (osPref[i].checked == true) {
+                    osPref = osPref[i].value;
+                    check = true;
+                }
+            }
+            check = false;
+            for (i = 0; i < sepPref.length && check == false; i++) {
+                if (sepPref[i].checked == true) {
+                    sepPref = sepPref[i].value;
+                    check = true;
+                }
+            }
+
+            window.localStorage.setItem("formatPref", formatPref);
+            window.localStorage.setItem("datePref", datePref);
+            window.localStorage.setItem("numberPref", numberPref);
+            window.localStorage.setItem("osPref", osPref);
+            window.localStorage.setItem("sepPref", sepPref);
+
+            send();
         }
+    }
+
+    //send current options
+    function send() {
+        document.forms['myForm'].submit();
+    }
 </script>
 
 </html>
