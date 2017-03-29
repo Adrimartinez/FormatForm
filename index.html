@@ -31,7 +31,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="col-lg-3" style="width:19%; margin-top:10px">
+                                    <div class="col-lg-3" style="width:auto; margin-top:10px; margin-left:-15px;">
                                         Format preference:
                                     </div>
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
@@ -47,15 +47,15 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
 
                     <!-- form for date -->
                     <div id="formDate" class="form-horizontal" style="display:none">
+                        
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-10">
-                                    <div class="col-lg-3" style="width:19%; margin-top:10px">
-                                        Format date preference:
+                                    <div class="col-lg-3" style="width:auto; margin-top:10px; margin-left: -15px;">
+                                        Date format preference: 
                                     </div>
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
 
@@ -72,10 +72,9 @@
 
                     </div>
 
-
                     <!-- form for numbers -->
                     <div id="formNumber" class="form-horizontal" style="display:none">
-                        <hr>
+                        
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -89,10 +88,27 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- form for separators -->
+                    <div id="formSeparator" class="form-horizontal" style="display:none;">
+                        
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    Separator:
+                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
+                                        <label id="comlbl" class="sepPreflbl btn"><input type="radio" id="com" name="sepPref" class="sepPref radio-inline" value="com"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Comma</label>
+
+                                        <label id="tablbl" class="sepPreflbl btn"><input type="radio" id="tab" name="sepPref" class="sepPref radio-inline" value="tab"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Tabulation</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- form for OS -->
-                    <div id="formOs" class="form-horizontal" ç>
-                        <hr>
+                    <div id="formOs" class="form-horizontal">
+                        
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -108,23 +124,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- form for separators -->
-                    <div id="formSeparator" class="form-horizontal">
-                        <hr>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    Separator:
-                                    <div class="btn-group btn-group-horizontal" data-toggle="buttons">
-                                        <label id="comlbl" class="sepPreflbl btn"><input type="radio" id="com" name="sepPref" class="sepPref radio-inline" value="com"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Comma</label>
-
-                                        <label id="tablbl" class="sepPreflbl btn"><input type="radio" id="tab" name="sepPref" class="sepPref radio-inline" value="tab"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Tabulation</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div>* Your operative system al this momment</div>
                 </form>
 
@@ -211,6 +211,7 @@
 
         document.getElementById('formDate').style.display = "";
         document.getElementById('formNumber').style.display = "";
+        document.getElementById('formSeparator').style.display = "";
 
     }
 
@@ -220,31 +221,38 @@
                 $("#en").prop("checked", true);
 
                 $("#point").prop("checked", true);
+                $("#com").prop("checked", true);
 
                 document.getElementById("datalbl").className = 'btn';
                 document.getElementById("itlbl").className = 'btn';
                 document.getElementById("commalbl").className = 'btn';
+                document.getElementById("tablbl").className = 'btn';
 
                 document.getElementById("enlbl").className = 'btn active';
                 document.getElementById("pointlbl").className = 'btn active';
+                document.getElementById("comlbl").className = 'btn active';
                 break;
 
             case "europe":
                 $("#it").prop("checked", true);
 
                 $("#comma").prop("checked", true);
+                $("#com").prop("checked", true);
 
                 document.getElementById("datalbl").className = 'btn';
                 document.getElementById("enlbl").className = 'btn';
                 document.getElementById("pointlbl").className = 'btn';
+                document.getElementById("tablbl").className = 'btn';
 
                 document.getElementById("itlbl").className = 'btn active';
                 document.getElementById("commalbl").className = 'btn active';
+                document.getElementById("comlbl").className = 'btn active';
                 break;
         }
 
         document.getElementById('formDate').style.display = "none";
         document.getElementById('formNumber').style.display = "none";
+        document.getElementById('formSeparator').style.display = "none";
     }
 
     function storage() {
