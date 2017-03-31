@@ -22,7 +22,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Export preferences</h4>
+                    <h4 class="modal-title">Format preference</h4>
                 </div>
                 <form id="myForm" class="col-lg-12" action="export.php" method="get">
 
@@ -36,9 +36,9 @@
                                     </div>
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
 
-                                        <label id="europelbl" onclick="hidde('europe')" class="formatPreflbl btn"><input type="radio" onclick="hidde('europe')" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe</label>
-                                            
                                         <label id="usalbl" onclick="hidde('usa')" class="formatPreflbl btn"><input type="radio" id="usa" onclick="hidde('usa')" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>USA</label>
+
+                                        <label id="europelbl" onclick="hidde('europe')" class="formatPreflbl btn"><input type="radio" onclick="hidde('europe')" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe</label>
 
                                         <label id="customlbl" onclick="show()" class="formatPreflbl btn"><input type="radio" id="custom" class="formatPref radio-inline"   name="formatPref" value="custom"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Custom</label>
 
@@ -63,7 +63,7 @@
 
                                         <label id="itlbl" class="datePreflbl btn"><input type="radio" id="it" class="datePref radio-inline"  name="datePref" value="it"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>DD/MM/YYYY</label>
 
-                                        <label id="datalbl" class="datePreflbl btn"><input type="radio" id="data" class="datePref radio-inline"  name="datePref" value="data"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>YYYY-MM-DD</label>
+                                        <label id="datalbl" class="datePreflbl btn"><input type="radio" id="data" class="datePref radio-inline"  name="datePref" value="data"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>YYYY/MM/DD</label>
 
                                     </div>
                                 </div>
@@ -100,8 +100,6 @@
                                         <label id="comlbl" class="sepPreflbl btn"><input type="radio" id="com" name="sepPref" class="sepPref radio-inline" value="com"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Comma</label>
 
                                         <label id="tablbl" class="sepPreflbl btn"><input type="radio" id="tab" name="sepPref" class="sepPref radio-inline" value="tab"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Tabulation</label>
-                                        
-                                        <label id="colonlbl" class="sepPreflbl btn"><input type="radio" id="colon" name="sepPref" class="sepPref radio-inline" value="colon"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Semicolon</label>
                                     </div>
                                 </div>
                             </div>
@@ -178,13 +176,13 @@
 
                 OSrec();
 
-                document.getElementById("europelbl").className = 'usalbl btn active';
+                document.getElementById("usalbl").className = 'usalbl btn active';
                 document.getElementById("enlbl").className = 'onlbl btn active';
                 document.getElementById("pointlbl").className = 'pointlbl btn active';
                 document.getElementById("winlbl").className = 'winlbl btn active';
                 document.getElementById("comlbl").className = 'comlbl btn active';
 
-                $("#europe").prop("checked", true);
+                $("#usa").prop("checked", true);
                 $("#en").prop("checked", true);
                 $("#point").prop("checked", true);
                 $("#win").prop("checked", true);

@@ -35,6 +35,9 @@ require_once('api.php');
         case "tab":
             $separator = "\t";
             break;
+        case "colon":
+            $separator = ";";
+            break;
     }
     foreach($data as $dat){
         foreach($dat as $a){
