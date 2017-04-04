@@ -6,10 +6,10 @@ require_once('api.php');
 
     $file = fopen("data.csv","w");
    
-    $datePref = $_GET['datePref'];
-    $numberPref = $_GET['numberPref'];
-    $osPref = $_GET['osPref'];
-    $sep = $_GET['sepPref'];
+    $datePref = mysql_real_escape_string(trim($_GET['datePref']));
+    $numberPref = mysql_real_escape_string(trim($_GET['numberPref']));
+    $osPref = mysql_real_escape_string(trim($_GET['osPref']));
+    $sep = mysql_real_escape_string(trim($_GET['sepPref']));
     $endline = "";
     $separator = "";
     $api = new Api($datePref, $numberPref);

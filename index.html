@@ -127,13 +127,15 @@
                         </div>
                     </div>
                     
-                    <div style="margin-left: 7px;">* Your operative system al this momment</div>
+                    <div style="margin-left: 7px;">* Your location</div>
+                    <div style="margin-left: 1px;">** Your operative system</div>
+                    <div id="yourinfo"></div>
                 </form>
 
                 <!-- buttons -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btnClose" data-dismiss="modal">Close</button>
-                    <button class="btn btn-info btnExport" id="ex" type="submit" onClick="storage()" data-dismiss="modal" value="Export">Export</button>
+                    <button type="button" class="btn btn-info btnExport" id="ex"  onClick="storage()" data-dismiss="modal">Export</button>
                 </div>
             </div>
 
@@ -141,14 +143,20 @@
     </div>
 
 </body>
-
+    
+<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAp04yNttlQq-7b4aZI_jL5hQYPm-xtd00hTQOC0OXpAMO40FHAxQMnH50uBbWoKVHwgpklyirDEregg"></script>
 <script>
-    //load the preferences from the local Storage
+    
+    
+    
+    
     function openForm() {
         $('#myModal').modal('show');
+        detectLocale();
 
         if (opened === false) {
             opened = true;
+            //load the preferences from the local Storage
             formatPref = window.localStorage.getItem("formatPref");
             datePref = window.localStorage.getItem("datePref");
             numberPref = window.localStorage.getItem("numberPref");
@@ -158,9 +166,9 @@
             if (formatPref != null) {
 
                 if (formatPref == "custom") {
-                    show();
+                    show(); //if format custom show the hidden fields
                 }
-
+                //turning actives with the local storage
                 $("#" + formatPref).prop("checked", true);
                 $("#" + datePref).prop("checked", true);
                 $("#" + numberPref).prop("checked", true);
@@ -177,7 +185,8 @@
             else {
 
                 OSrec();
-
+                
+                //turning actives by default without local storage
                 document.getElementById("europelbl").className = 'usalbl btn active';
                 document.getElementById("enlbl").className = 'onlbl btn active';
                 document.getElementById("pointlbl").className = 'pointlbl btn active';
@@ -193,24 +202,24 @@
         }
     };
 
-
+    //recognize the operative system
     function OSrec() {
         if (navigator.appVersion.indexOf("Win") != -1) {
             document.getElementById("winlbl").className = 'btn active';
-            document.getElementById("winlbl").innerHTML = '<input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows*';
+            document.getElementById("winlbl").innerHTML = '<input type="radio" id="windows" name="osPref" class="osPref radio-inline" value="win" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Windows**';
         }
         if (navigator.appVersion.indexOf("Mac") != -1) {
             document.getElementById("maclbl").className = 'btn active';
-            document.getElementById("maclbl").innerHTML = '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac*';
+            document.getElementById("maclbl").innerHTML = '<input type="radio" id="mac" name="osPref" class="osPref radio-inline" value="mac" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Mac**';
         }
         if (navigator.appVersion.indexOf("Linux") != -1) {
             document.getElementById("linlbl").className = 'btn active';
-            document.getElementById("linlbl").innerHTML = '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux*';
+            document.getElementById("linlbl").innerHTML = '<input type="radio" id="linux" name="osPref" class="osPref radio-inline" value="lin" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Linux**';
         }
     }
 
     function show() {
-
+        //show the hidden fields
         document.getElementById('formDate').style.display = "";
         document.getElementById('formNumber').style.display = "";
         document.getElementById('formSeparator').style.display = "";
@@ -219,9 +228,10 @@
 
     function hidde(param) {
         switch (param) {
+                
             case "usa":
+                //on selected option "usa" hide fields and check the ones for usa
                 $("#en").prop("checked", true);
-
                 $("#point").prop("checked", true);
                 $("#com").prop("checked", true);
 
@@ -236,8 +246,8 @@
                 break;
 
             case "europe":
+                //on selected option "europe" hide fields and check the ones for eeu
                 $("#it").prop("checked", true);
-
                 $("#comma").prop("checked", true);
                 $("#com").prop("checked", true);
 
@@ -264,7 +274,7 @@
             formatPref = document.getElementsByClassName("formatPref");
             osPref = document.getElementsByClassName("osPref");
             sepPref = document.getElementsByClassName("sepPref");
-
+            //catch the selected option
             check = false;
             for (i = 0; i < formatPref.length && check == false; i++) {
                 if (formatPref[i].checked == true) {
@@ -274,6 +284,7 @@
             }
 
             switch (formatPref) {
+                    //pretederminate values for options "europe" "usa"
                 case "europe":
                     datePref = "it";
                     numberPref = "comma";
@@ -285,7 +296,7 @@
                 case "custom":
                     datePref = document.getElementsByClassName("datePref");
                     numberPref = document.getElementsByClassName("numberPref");
-
+                    //catch the selected option
                     check = false;
                     for (i = 0; i < datePref.length && check == false; i++) {
                         if (datePref[i].checked == true) {
@@ -293,6 +304,7 @@
                             check = true;
                         }
                     }
+                    //catch the selected option
                     check = false;
                     for (i = 0; i < numberPref.length && check == false; i++) {
                         if (numberPref[i].checked == true) {
@@ -303,6 +315,7 @@
 
                     break;
             }
+            //catch the selected option
             check = false;
             for (i = 0; i < osPref.length && check == false; i++) {
                 if (osPref[i].checked == true) {
@@ -310,6 +323,7 @@
                     check = true;
                 }
             }
+            //catch the selected option
             check = false;
             for (i = 0; i < sepPref.length && check == false; i++) {
                 if (sepPref[i].checked == true) {
@@ -317,7 +331,7 @@
                     check = true;
                 }
             }
-
+            //saving localStorage
             window.localStorage.setItem("formatPref", formatPref);
             window.localStorage.setItem("datePref", datePref);
             window.localStorage.setItem("numberPref", numberPref);
@@ -330,8 +344,73 @@
 
     //send current options
     function send() {
+        //send modal form to php
         document.forms['myForm'].submit();
+        //change the button and wait for 0.5 secs until it fade out
+        document.getElementById('ex').innerHTML = "Exporting...";
+        document.getElementById('ex').disabled = true;
+        
+        setTimeout(function(){
+            setTimeout(function(){
+                document.getElementById('ex').disabled = false;
+                document.getElementById('ex').innerHTML = "Export"; 
+            },500);
+            $('#myModal').modal('hide');
+        },1000);
+        
+    }
+    
+    function showPosition(position) {
+            //calculate side of the map you are
+            if (position.coords.longitude > -25.8895809){
+                
+                //position for europe
+                $("#europe").prop("checked", true);
+                $("#it").prop("checked", true);
+                $("#comma").prop("checked", true);
+                $("#com").prop("checked", true);
+                
+                document.getElementById('usalbl').className = 'btn';
+                document.getElementById("datalbl").className = 'btn';
+                document.getElementById("enlbl").className = 'btn';
+                document.getElementById("pointlbl").className = 'btn';
+                document.getElementById("tablbl").className = 'btn';
+
+                document.getElementById("europelbl").className = 'btn active';
+                document.getElementById("europelbl").innerHTML = '<input type="radio" onclick="hidde("europe")" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe*';
+                
+                document.getElementById("itlbl").className = 'btn active';
+                document.getElementById("commalbl").className = 'btn active';
+                document.getElementById("comlbl").className = 'btn active';
+            }else{
+                //position for USA
+                $("#usa").prop("checked", true);
+                $("#en").prop("checked", true);
+                $("#point").prop("checked", true);
+                $("#com").prop("checked", true);
+
+                document.getElementById("europelbl").className = 'btn';
+                document.getElementById("datalbl").className = 'btn';
+                document.getElementById("itlbl").className = 'btn';
+                document.getElementById("commalbl").className = 'btn';
+                document.getElementById("tablbl").className = 'btn';
+
+                document.getElementById("usalbl").innerHTML = '<input type="radio" id="usa" onclick="hidde("usa")" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o" checked=true></i><i class="fa fa-dot-circle-o"></i>USA*';
+                document.getElementById("usalbl").className = 'btn active';
+                document.getElementById("enlbl").className = 'btn active';
+                document.getElementById("pointlbl").className = 'btn active';
+                document.getElementById("comlbl").className = 'btn active';
+            }
+        }
+    
+    function detectLocale(){
+        //catch position of your connection
+       x = document.getElementById('yourinfo');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
     }
 </script>
-
 </html>
