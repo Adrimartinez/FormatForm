@@ -1,4 +1,5 @@
-<html> 
+<html>
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -10,6 +11,7 @@
 <script>
     opened = false;
 </script>
+
 <body>
     <div class="col-lg-5"></div>
     <div class="col-lg-1">
@@ -23,7 +25,7 @@
                     <h4 class="modal-title">Export preferences</h4>
                 </div>
                 <form id="myForm" class="col-lg-12" action="export.php" method="get">
-                        
+
                     <!-- form for predefined types -->
                     <div class="form-horizontal">
                         <div class="container">
@@ -35,7 +37,7 @@
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
 
                                         <label id="europelbl" onclick="hidde('europe')" class="formatPreflbl btn"><input type="radio" onclick="hidde('europe')" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe</label>
-                                            
+
                                         <label id="usalbl" onclick="hidde('usa')" class="formatPreflbl btn"><input type="radio" id="usa" onclick="hidde('usa')" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>USA</label>
 
                                         <label id="customlbl" onclick="show()" class="formatPreflbl btn"><input type="radio" id="custom" class="formatPref radio-inline"   name="formatPref" value="custom"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Custom</label>
@@ -48,15 +50,15 @@
 
                     <!-- form for date -->
                     <div id="formDate" class="form-horizontal" style="display:none">
-                        
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div class="col-lg-3" style="width:auto; margin-top:10px; margin-left: -15px;">
-                                        Date format preference: 
+                                        Date format preference:
                                     </div>
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
-                                        
+
                                         <label id="itlbl" class="datePreflbl btn"><input type="radio" id="it" class="datePref radio-inline"  name="datePref" value="it"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>DD/MM/YYYY</label>
 
                                         <label id="enlbl" class="datePreflbl btn"><input type="radio" id="en" class="datePref radio-inline"  name="datePref" value="en"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>MM/DD/YYYY</label>
@@ -72,26 +74,26 @@
 
                     <!-- form for numbers -->
                     <div id="formNumber" class="form-horizontal" style="display:none">
-                        
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     Numbers:
                                     <div class="btn-group btn-group-horizontal" data-toggle="buttons">
-                                        
+
                                         <label id="commalbl" class="numberPreflbl btn"><input type="radio" id="comma" name="numberPref" class="numberPref radio-inline" value="comma"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use comma for numbers (23,45)</label>
-                                        
+
                                         <label id="pointlbl" class="numberPreflbl btn"><input type="radio" id="point" name="numberPref" class="numberPref radio-inline" value="point"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Use dot for numbers (23.45)</label>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- form for separators -->
                     <div id="formSeparator" class="form-horizontal" style="display:none;">
-                        
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -100,7 +102,7 @@
                                         <label id="comlbl" class="sepPreflbl btn"><input type="radio" id="com" name="sepPref" class="sepPref radio-inline" value="com"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Comma</label>
 
                                         <label id="tablbl" class="sepPreflbl btn"><input type="radio" id="tab" name="sepPref" class="sepPref radio-inline" value="tab"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Tabulation</label>
-                                        
+
                                         <label id="colonlbl" class="sepPreflbl btn"><input type="radio" id="colon" name="sepPref" class="sepPref radio-inline" value="colon"><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Semicolon</label>
                                     </div>
                                 </div>
@@ -110,7 +112,7 @@
 
                     <!-- form for OS -->
                     <div id="formOs" class="form-horizontal">
-                        
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -125,42 +127,40 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div style="padding-bottom: 55px;">
-                        <div style="margin-left: 7px;">* Your location</div>
+                        <div id="OS" style="margin-left: 7px;">* Your location</div>
                         <div style="margin-left: 1px;">** Your operative system</div>
                     </div>
                 </form>
                 <div class="row">
-                        <div class="col-lg-12 loader" id="load" style="display:none;">
-                        </div>
+                    <div class="col-lg-12 loader" id="load" style="display:none;">
                     </div>
+                </div>
                 <!-- buttons -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btnClose" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-info btnExport" id="ex"  onClick="storage()" data-dismiss="modal">Export</button>
+                    <button type="button" class="btn btn-info btnExport" id="ex" onClick="storage()" data-dismiss="modal">Export</button>
                 </div>
-                
+
                 <div class="container">
-                    
+
                 </div>
-                
+
             </div>
 
         </div>
     </div>
 </body>
 <script>
-    
     function openForm() {
         $('#myModal').modal('show');
-        
 
         if (opened === false) {
             opened = true;
             detectLocale();
-            
+
             //load the preferences from the local Storage
             formatPref = window.localStorage.getItem("formatPref");
             datePref = window.localStorage.getItem("datePref");
@@ -169,7 +169,7 @@
             sepPref = window.localStorage.getItem("sepPref");
 
             if (formatPref != null) {
-                setTimeout(function(){
+                setTimeout(function() {
                     if (formatPref == "custom") {
                         show(); //if format custom show the hidden fields
                     }
@@ -188,7 +188,7 @@
                     document.getElementById(sepPref + "lbl").className += ' active';
 
                     OSrec();
-                },200)
+                }, 200)
             }
             else {
 
@@ -234,7 +234,7 @@
 
     function hidde(param) {
         switch (param) {
-                
+
             case "usa":
                 //on selected option "usa" hide fields and check the ones for usa
                 $("#en").prop("checked", true);
@@ -290,7 +290,7 @@
             }
 
             switch (formatPref) {
-                    //pretederminate values for options "europe" "usa"
+                //pretederminate values for options "europe" "usa"
                 case "europe":
                     datePref = "it";
                     numberPref = "comma";
@@ -357,21 +357,21 @@
         document.getElementById('ex').disabled = true;
         document.getElementById("myForm").style.display = "none";
         document.getElementById('load').style.display = "";
-        
-        setTimeout(function(){
-            setTimeout(function(){
+
+        setTimeout(function() {
+            setTimeout(function() {
                 document.getElementById('ex').disabled = false;
-                document.getElementById('ex').innerHTML = "Export"; 
+                document.getElementById('ex').innerHTML = "Export";
                 document.getElementById('load').style.display = "none";
                 document.getElementById("myForm").style.display = "";
-            },500);
+            }, 500);
             $('#myModal').modal('hide');
-        },3000);
-        
+        }, 3000);
+
     }
-    
-    function inactivate(){
-        
+
+    function inactivate() {
+
         //unselect all the fields for a clear reset of the form
         document.getElementById('usalbl').className = 'btn';
         document.getElementById("datalbl").className = 'btn';
@@ -382,7 +382,7 @@
         document.getElementById("itlbl").className = 'btn';
         document.getElementById("commalbl").className = 'btn';
         document.getElementById("comlbl").className = 'btn';
-        
+
         $("#europe").prop("checked", false);
         $("#it").prop("checked", false);
         $("#comma").prop("checked", false);
@@ -390,51 +390,52 @@
         $("#usa").prop("checked", false);
         $("#en").prop("checked", false);
         $("#point").prop("checked", false);
-        
-    }
-    
-    function showPosition(position) {
-        
-            //calculate side of the map you are
-            if (position.coords.longitude > -25.8895809){
-                
-                //position for europe
-                inactivate();
-                $("#europe").prop("checked", true);
-                $("#it").prop("checked", true);
-                $("#comma").prop("checked", true);
-                $("#com").prop("checked", true);
-                
-                document.getElementById("europelbl").className = 'btn active';
-                document.getElementById("europelbl").innerHTML = '<input type="radio" onclick="hidde("europe")" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe*';
-                
-                document.getElementById("itlbl").className = 'btn active';
-                document.getElementById("commalbl").className = 'btn active';
-                document.getElementById("comlbl").className = 'btn active';
-            }else{
-                //position for USA
-                inactivate();
-                $("#usa").prop("checked", true);
-                $("#en").prop("checked", true);
-                $("#point").prop("checked", true);
-                $("#com").prop("checked", true);
 
-                document.getElementById("usalbl").innerHTML = '<input type="radio" id="usa" onclick="hidde("usa")" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o" checked=true></i><i class="fa fa-dot-circle-o"></i>USA*';
-                document.getElementById("usalbl").className = 'btn active';
-                document.getElementById("enlbl").className = 'btn active';
-                document.getElementById("pointlbl").className = 'btn active';
-                document.getElementById("comlbl").className = 'btn active';
-            }
+    }
+
+    function showPosition(position) {
+
+        //calculate side of the map you are
+        if (position.coords.longitude > -25.8895809) {
+
+            //position for europe
+            inactivate();
+            $("#europe").prop("checked", true);
+            $("#it").prop("checked", true);
+            $("#comma").prop("checked", true);
+            $("#com").prop("checked", true);
+
+            document.getElementById("europelbl").innerHTML = '<input type="radio" onclick="hidde("europe")" id="europe" class="formatPref radio-inline"  name="formatPref" value="europe" checked=true><i class="fa fa-circle-o"></i><i class="fa fa-dot-circle-o"></i>Europe*';
+            document.getElementById("europelbl").className = 'btn active';
+            document.getElementById("itlbl").className = 'btn active';
+            document.getElementById("commalbl").className = 'btn active';
+            document.getElementById("comlbl").className = 'btn active';
         }
-    
-    function detectLocale(){
+        else {
+            //position for USA
+            inactivate();
+            $("#usa").prop("checked", true);
+            $("#en").prop("checked", true);
+            $("#point").prop("checked", true);
+            $("#com").prop("checked", true);
+
+            document.getElementById("usalbl").innerHTML = '<input type="radio" id="usa" onclick="hidde("usa")" class="formatPref radio-inline"  name="formatPref" value="usa" checked><i class="fa fa-circle-o" checked=true></i><i class="fa fa-dot-circle-o"></i>USA*';
+            document.getElementById("usalbl").className = 'btn active';
+            document.getElementById("enlbl").className = 'btn active';
+            document.getElementById("pointlbl").className = 'btn active';
+            document.getElementById("comlbl").className = 'btn active';
+        }
+    }
+
+    function detectLocale() {
         //catch position of your connection
-       x = document.getElementById('yourinfo');
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
-        } else { 
-            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        else {
+            document.getElementById("OS").innerHTML = "Geolocation is not supported by this browser.";
         }
     }
 </script>
+
 </html>

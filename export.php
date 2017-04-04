@@ -14,7 +14,7 @@ require_once('api.php');
     $separator = "";
     $api = new Api($datePref, $numberPref);
     $data = $api->doTask($datePref, $numberPref);
-
+    
     
     switch($osPref){
         case "win":
